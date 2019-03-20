@@ -398,6 +398,8 @@ class TestRunner extends BaseTestRunner
 
         $codeCoverageReports = 0;
 
+        $determineBranchCoverage = false;
+
         if (!isset($arguments['noLogging'])) {
             if (isset($arguments['testdoxHTMLFile'])) {
                 $result->addListener(
@@ -477,6 +479,10 @@ class TestRunner extends BaseTestRunner
             $codeCoverageReports = 0;
         }
 
+        if ($codeCoverageReports > 0 && isset($arguments['determineBranchCoverage'])) {
+            $determineBranchCoverage = true;
+        }
+
         if ($codeCoverageReports > 0 || isset($arguments['xdebugFilterFile'])) {
             $whitelistFromConfigurationFile = false;
             $whitelistFromOption            = false;
@@ -527,6 +533,10 @@ class TestRunner extends BaseTestRunner
                 null,
                 $this->codeCoverageFilter
             );
+
+            if ($determineBranchCoverage) {
+                $codeCoverage->setDetermineBranchCoverage(true);
+            }
 
             $codeCoverage->setUnintentionallyCoveredSubclassesWhitelist(
                 [Comparator::class]

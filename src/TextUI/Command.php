@@ -69,6 +69,7 @@ class Command
         'atleast-version='          => null,
         'prepend='                  => null,
         'bootstrap='                => null,
+        'branch-coverage'           => null,
         'cache-result'              => null,
         'cache-result-file='        => null,
         'check-version'             => null,
@@ -358,6 +359,11 @@ class Command
 
                 case '--coverage-xml':
                     $this->arguments['coverageXml'] = $option[1];
+
+                    break;
+
+                case '--branch-coverage':
+                    $this->arguments['determineBranchCoverage'] = true;
 
                     break;
 
@@ -1094,6 +1100,7 @@ Code Coverage Options:
   --whitelist <dir>           Whitelist <dir> for code coverage analysis
   --disable-coverage-ignore   Disable annotations for ignoring code coverage
   --no-coverage               Ignore code coverage configuration
+  --branch-coverage           Enable branch coverage
   --dump-xdebug-filter <file> Generate script to set Xdebug code coverage filter
 
 Logging Options:
